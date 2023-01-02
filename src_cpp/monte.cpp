@@ -1,5 +1,6 @@
 #include "monte.h"
 
+#include <chrono>
 #include <cmath>
 #include <iostream>
 #include <random>
@@ -7,6 +8,9 @@
 
 std::vector<std::vector<float>> monte_carlo_pricing()
 {
+    // measure runtime
+    auto begin {std::chrono::high_resolution_clock::now()};
+
     // time steps
     constexpr size_t M {50};
     // time interval
@@ -49,7 +53,12 @@ std::vector<std::vector<float>> monte_carlo_pricing()
     // Calculating the overall Monte Carlo estimator
     estimator = exp(-g_r * g_T) * estimator / I;
 
+    // Calculating total runtime.
+    auto end {std::chrono::high_resolution_clock::now()};
+    auto elapsed {std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin)};
+
     std::cout << "The European option value is: " << estimator << '\n';
+    std::cout << "The execution time was: " << elapsed.count() * 1e-9 << " seconds.\n";
 
     return arr;
 }
