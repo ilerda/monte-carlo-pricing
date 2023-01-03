@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <cmath>
+#include <fstream>
 #include <iostream>
 #include <random>
 #include <vector>
@@ -61,4 +62,20 @@ std::vector<std::vector<float>> monte_carlo_pricing()
     std::cout << "The execution time was: " << elapsed.count() * 1e-9 << " seconds.\n";
 
     return arr;
+}
+
+void generate_csv(std::vector<std::vector<float>>& arr)
+{
+    // Write the first ten simulated paths to a csv file called "paths.csv".
+    // Takes the vector returned by monte_carlo_pricing() as a parameter.
+    std::ofstream out("paths.csv");
+
+    for (size_t i {0}; i < 10; ++i)
+    {
+        for (auto col : arr[i])
+        {
+            out << col << ',';
+        }
+        out << '\n';
+    }
 }
