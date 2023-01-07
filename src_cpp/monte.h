@@ -15,6 +15,7 @@ constexpr float g_r {0.05};
 constexpr float g_sigma {0.2};
 
 std::vector<std::vector<float>> monte_carlo_pricing();
+float monte_carlo_pricing_fast();
 void generate_csv(std::vector<std::vector<float>>& arr);
 
 #endif
